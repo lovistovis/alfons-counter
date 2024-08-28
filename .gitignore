@@ -1,6 +1,7 @@
 ﻿__pycache__
 tmp
 generated
+data
 .env
 logs
 .VSCodeCounter
