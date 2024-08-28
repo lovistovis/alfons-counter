@@ -42,7 +42,7 @@ class CommandsCog(Cog):
             await ctx.respond("Kanalen har inga registrerade timmar.")
             return
 
-        nick = "Du" if member_was_none else get_nick_or_name(member)
+        nick = get_nick_or_name(member)
 
         if member.id not in channel_data.counts.counts:
             await ctx.respond(f"{nick} har inga timmar.")
