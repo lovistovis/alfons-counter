@@ -7,7 +7,7 @@ from CommandsCog import CommandsCog
 from EventsCog import EventsCog
 
 intents = Intents.default()
-intents.presences = True
+intents.presences = False
 intents.members = True
 intents.message_content = True
 bot = Bot(command_prefix="/", intents=intents)
