@@ -7,6 +7,12 @@ from models import ChannelData
 test_guilds = []
 
 
+def get_nick_or_name(member: Member):
+    if member.nick is not None:
+        return member.nick
+    return member.name
+
+
 class CommandsCog(Cog):
     def __init__(self, bot: Bot):
         self.bot = bot
@@ -36,7 +42,7 @@ class CommandsCog(Cog):
             await ctx.respond("Kanalen har inga registrerade siffror.")
             return
 
-        nick = "Du" if member_was_none else member.nick
+        nick = "Du" if member_was_none else get_nick_or_name(member)
 
         if member.id not in channel_data.counts.counts:
             await ctx.respond(f"{nick} har ingen siffra.")
@@ -44,6 +50,28 @@ class CommandsCog(Cog):
         count = channel_data.counts.counts[member.id]
 
         await ctx.respond(f"{nick} har siffran {count}.")
+
+    @slash_command(
+        name="counts",
+        description="Se allas siffror för en kanal.",
+        test_guilds=test_guilds,
+    )
+    @guild_only()
+    async def counts(
+        self,
+        ctx: Context,
+    ):
+        channel_data = await ChannelData.fetch(ctx.channel.id)
+        if channel_data == None:
+            await ctx.respond("Kanalen har inga registrerade siffror.")
+            return
+
+        rows = []
+        for member_id, count in channel_data.counts.counts.items():
+            nick = get_nick_or_name(ctx.guild.get_member(member_id))
+            rows.append(f"{nick}, {count} timmar")
+
+        await ctx.respond("\n".join(rows))
 
     async def cog_command_error(self, ctx: Context, error: CommandError):
         raise error  # Here we raise other errors to ensure they aren't ignored
