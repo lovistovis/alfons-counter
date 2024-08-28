@@ -4,7 +4,7 @@ from discord.ext.commands import Cog, CommandError
 
 from models import ChannelData
 
-test_guilds = []
+test_guilds = [1218937664351240232]
 
 
 def get_nick_or_name(member: Member):
@@ -19,7 +19,7 @@ class CommandsCog(Cog):
 
     @slash_command(
         name="count",
-        description="Se siffran för en användare.",
+        description="Se timmar för en användare.",
         test_guilds=test_guilds,
     )
     @guild_only()
@@ -39,21 +39,21 @@ class CommandsCog(Cog):
 
         channel_data = await ChannelData.fetch(ctx.channel.id)
         if channel_data == None:
-            await ctx.respond("Kanalen har inga registrerade siffror.")
+            await ctx.respond("Kanalen har inga registrerade timmar.")
             return
 
         nick = "Du" if member_was_none else get_nick_or_name(member)
 
         if member.id not in channel_data.counts.counts:
-            await ctx.respond(f"{nick} har ingen siffra.")
+            await ctx.respond(f"{nick} har inga timmar.")
             return
         count = channel_data.counts.counts[member.id]
 
-        await ctx.respond(f"{nick} har siffran {count}.")
+        await ctx.respond(f"{nick}, {count} timmar.")
 
     @slash_command(
         name="counts",
-        description="Se allas siffror för en kanal.",
+        description="Se allas timmar för en kanal.",
         test_guilds=test_guilds,
     )
     @guild_only()
@@ -63,7 +63,7 @@ class CommandsCog(Cog):
     ):
         channel_data = await ChannelData.fetch(ctx.channel.id)
         if channel_data == None:
-            await ctx.respond("Kanalen har inga registrerade siffror.")
+            await ctx.respond("Kanalen har inga registrerade timmar.")
             return
 
         rows = []
