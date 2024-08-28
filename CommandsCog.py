@@ -52,12 +52,12 @@ class CommandsCog(Cog):
         await ctx.respond(f"{nick}, {count:.2f} timmar.")
 
     @slash_command(
-        name="counts",
+        name="allcounts",
         description="Se allas timmar för en kanal.",
         test_guilds=test_guilds,
     )
     @guild_only()
-    async def counts(
+    async def allcounts(
         self,
         ctx: Context,
     ):
