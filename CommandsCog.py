@@ -4,7 +4,7 @@ from discord.ext.commands import Cog, CommandError
 
 from models import ChannelData
 
-test_guilds = [1218937664351240232]
+test_guilds = []
 
 
 def get_nick_or_name(member: Member):
