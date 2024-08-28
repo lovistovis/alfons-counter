@@ -5,7 +5,7 @@ from pydbantic import DataBaseModel, PrimaryKey
 
 
 class Counts(BaseModel):
-    counts: Dict[int, int] = {}
+    counts: Dict[int, float] = {}
 
 
 class ChannelData(DataBaseModel):

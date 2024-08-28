@@ -5,11 +5,19 @@ from db import create_db
 from models import ChannelData
 
 
+def is_float(string: any) -> bool:
+    try:
+        float(string)
+        return True
+    except ValueError:
+        return False
+
+
 def parse_message(message: str) -> int | None:
     sign, num = message[0], message[1:]
 
-    if ((negative := sign == "-") or sign == "+") and num.isnumeric():
-        num = int(num)
+    if ((negative := sign == "-") or sign == "+") and is_float(num):
+        num = float(num)
         return -num if negative else num
     return None
 

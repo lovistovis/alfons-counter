@@ -49,7 +49,7 @@ class CommandsCog(Cog):
             return
         count = channel_data.counts.counts[member.id]
 
-        await ctx.respond(f"{nick}, {count} timmar.")
+        await ctx.respond(f"{nick}, {count:.2f} timmar.")
 
     @slash_command(
         name="counts",
@@ -69,7 +69,7 @@ class CommandsCog(Cog):
         rows = []
         for member_id, count in channel_data.counts.counts.items():
             nick = get_nick_or_name(ctx.guild.get_member(member_id))
-            rows.append(f"{nick}, {count} timmar")
+            rows.append(f"{nick}, {count:.2f} timmar")
 
         await ctx.respond("\n".join(rows))
 
