@@ -4,7 +4,7 @@ from discord.ext.commands import Cog, CommandError
 
 from models import ChannelData
 
-test_guilds = [1194638767802298398, 1218937664351240232]
+test_guilds = []
 
 
 class CommandsCog(Cog):
